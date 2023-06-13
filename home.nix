@@ -1,10 +1,15 @@
 { config, pkgs, ... }:
 
+  let 
+    info = if pkgs.system == "x86_64-linux"
+           then { username="serena"; homedir="/home/serena"; }
+           else { username="kat"; homedir="/Users/kat"; };    
+  in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "kat";
-  home.homeDirectory = "/Users/kat";
+  home.username = info.username;
+  home.homeDirectory = info.homedir;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
