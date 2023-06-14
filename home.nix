@@ -38,11 +38,12 @@
     pkgs.git
     pkgs.nil
     pkgs.gh
+    pkgs.starship
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -107,6 +108,15 @@
         autoSetupRemote = true;
       };
     };
+  };
+
+  programs.starship = {
+    enable = true;
+  };
+
+  programs.wezterm = {
+    enable = true;
+    extraConfig = builtins.readFile ./wezterm.lua;
   };
 
   
