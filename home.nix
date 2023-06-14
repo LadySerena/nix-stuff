@@ -34,6 +34,7 @@
     pkgs.zellij
     pkgs.git
     pkgs.nil
+    pkgs.gh
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -50,9 +51,33 @@
 
   programs.helix = {
     enable = true;
+    
     settings = {
-      theme = "onedark";
-      
+      theme = "base16_terminal";
+      editor = {
+        true-color = true;
+        file-picker = {
+          hidden = true;
+        };
+      };
+    };
+
+    languages = {
+      language = [
+        {
+          name = "rust";
+          config = {
+            checkOnSave = {
+              command = "clippy";
+            };
+          };
+        }
+        {
+          name = "markdown";
+          text-width = 120;
+        }
+      ];
+        
     };
   };
 
@@ -90,7 +115,7 @@
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "hx";
   };
 
   # Let Home Manager install and manage itself.
