@@ -85,6 +85,12 @@
     enable = true;
     userName = "LadySerena";
     userEmail = "serena.tiede+github@gmail.com";
+    extraConfig = {
+      pull = {
+        rebase = true;
+      };
+    };
+    # git config pull.rebase true
   };
 
   
@@ -116,6 +122,13 @@
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
     EDITOR = "hx";
+  };
+
+  programs.zsh = {
+    enable = true;
+    initExtra = ''
+      . "$HOME/.cargo/env"
+    '';
   };
 
   # Let Home Manager install and manage itself.
