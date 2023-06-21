@@ -1,18 +1,10 @@
 { config, pkgs, ... }:
 
-  let 
-    info = if pkgs.system == "x86_64-linux"
-           then { username="serena"; homedir="/home/serena"; }
-           else { username="kat"; homedir="/Users/kat"; };
-    macPackages = if pkgs.stdenv.isDarwin then [ pkgs.raycast pkgs.lima ] else [];    
-  in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   nixpkgs.config.allowUnfree = true;
   # config.allowUnfree = true;
-  home.username = info.username;
-  home.homeDirectory = info.homedir;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -58,7 +50,7 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ] ++ macPackages;
+  ];
 
   programs.helix = {
     enable = true;

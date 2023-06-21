@@ -1,8 +1,7 @@
 # serena's nix/home-manager stuff
 
 I'm tired of setting my machines by hand all the time so like a basic transfemme let's finally learn nix.
-
-## install
+## Install
 
 1. install nix
   * https://nixos.org/download.html
