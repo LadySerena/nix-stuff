@@ -4,6 +4,8 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   nixpkgs.config.allowUnfree = true;
+
+  imports = [ ./helix.nix ];
   # config.allowUnfree = true;
 
   # This value determines the Home Manager release that your configuration is
@@ -20,10 +22,8 @@
   home.packages = [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
-    # pkgs.hello
     pkgs.htop
     pkgs.helix
-    pkgs.wezterm
     pkgs.starship
     pkgs.rustup
     pkgs.zellij
@@ -35,8 +35,13 @@
     pkgs.lldb
     pkgs.nodePackages.yaml-language-server
     pkgs.nodePackages.bash-language-server
+    pkgs.nodePackages.prettier
+    pkgs.nodePackages.dockerfile-language-server-nodejs
     pkgs.ltex-ls
     pkgs.qemu
+    pkgs.nixfmt
+    pkgs.google-cloud-sdk
+    pkgs.fzf
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -52,41 +57,6 @@
     # '')
   ];
 
-  programs.helix = {
-    enable = true;
-    
-    settings = {
-      theme = "base16_terminal";
-      editor = {
-        true-color = true;
-        file-picker = {
-          hidden = true;
-        };
-      };
-    };
-
-    languages = {
-      language = [
-        {
-          name = "rust";
-          config = {
-            checkOnSave = {
-              command = "clippy";
-            };
-          };
-        }
-        {
-          name = "markdown";
-          text-width = 120;
-          language-server = {
-            command = "ltex-ls";
-          };
-        }
-      ];
-        
-    };
-  };
-
   programs.git = {
     enable = true;
     userName = "LadySerena";
@@ -94,42 +64,27 @@
     aliases = {
       amend = "commit --all --amend --no-edit";
       new = "!f() { git checkout -b serena/$1; }; f";
-      yeet = "!f() { git branch | grep -v ' master$' | grep -v ' main$' | xargs git branch -D; }; f";
+      yeet =
+        "!f() { git branch | grep -v ' master$' | grep -v ' main$' | xargs git branch -D; }; f";
     };
     extraConfig = {
-      core = {
-        editor = "hx";
-      };
-      pull = {
-        rebase = true;
-      };
-      init = {
-        defaultBranch = "main";
-      };
-      push = {
-        autoSetupRemote = true;
-      };
+      core = { editor = "hx"; };
+      pull = { rebase = true; };
+      init = { defaultBranch = "main"; };
+      push = { autoSetupRemote = true; };
     };
   };
 
   programs.starship = {
     enable = true;
     settings = {
-      directory = {
-        truncate_to_repo = false;
-      };
-      username = {
-        show_always = true;
-      };
+      directory = { truncate_to_repo = false; };
+      username = { show_always = true; };
+      kubernetes = { disabled = false; };
     };
   };
 
-  programs.wezterm = {
-    enable = true;
-    extraConfig = builtins.readFile ./wezterm.lua;
-  };
-
-  
+  programs.fzf = { enable = true; };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -156,9 +111,7 @@
   #  /etc/profiles/per-user/kat/etc/profile.d/hm-session-vars.sh
   #
   # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    EDITOR = "hx";
-  };
+  home.sessionVariables = { EDITOR = "hx"; };
 
   programs.zsh = {
     enable = true;
@@ -172,11 +125,11 @@
     '';
   };
 
+  programs.gh = { enable = true; };
+
   programs.bat = {
     enable = true;
-    config = {
-      theme = "base16";
-    };
+    config = { theme = "base16"; };
   };
 
   # Let Home Manager install and manage itself.

@@ -1,12 +1,16 @@
 { config, pkgs, ... }:
 
-  let 
-    info = if pkgs.system == "x86_64-linux"
-           then { username="serena"; homedir="/home/serena"; }
-           else { username="kat"; homedir="/Users/kat"; };
-    macPackages = if pkgs.stdenv.isDarwin then [ pkgs.raycast pkgs.lima ] else [];    
-  in
-{
+let
+  info = if pkgs.system == "x86_64-linux" then {
+    username = "serena";
+    homedir = "/home/serena";
+  } else {
+    username = "kat";
+    homedir = "/Users/kat";
+  };
+  macPackages =
+    if pkgs.stdenv.isDarwin then [ pkgs.raycast pkgs.lima ] else [ ];
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   nixpkgs.config.allowUnfree = true;
@@ -62,14 +66,12 @@
 
   programs.helix = {
     enable = true;
-    
+
     settings = {
       theme = "base16_terminal";
       editor = {
         true-color = true;
-        file-picker = {
-          hidden = true;
-        };
+        file-picker = { hidden = true; };
       };
     };
 
@@ -77,21 +79,15 @@
       language = [
         {
           name = "rust";
-          config = {
-            checkOnSave = {
-              command = "clippy";
-            };
-          };
+          config = { checkOnSave = { command = "clippy"; }; };
         }
         {
           name = "markdown";
           text-width = 120;
-          language-server = {
-            command = "ltex-ls";
-          };
+          language-server = { command = "ltex-ls"; };
         }
       ];
-        
+
     };
   };
 
@@ -102,33 +98,22 @@
     aliases = {
       amend = "commit --all --amend --no-edit";
       new = "!f() { git checkout -b serena/$1; }; f";
-      yeet = "!f() { git branch | grep -v ' master$' | grep -v ' main$' | xargs git branch -D; }; f";
+      yeet =
+        "!f() { git branch | grep -v ' master$' | grep -v ' main$' | xargs git branch -D; }; f";
     };
     extraConfig = {
-      core = {
-        editor = "hx";
-      };
-      pull = {
-        rebase = true;
-      };
-      init = {
-        defaultBranch = "main";
-      };
-      push = {
-        autoSetupRemote = true;
-      };
+      core = { editor = "hx"; };
+      pull = { rebase = true; };
+      init = { defaultBranch = "main"; };
+      push = { autoSetupRemote = true; };
     };
   };
 
   programs.starship = {
     enable = true;
     settings = {
-      directory = {
-        truncate_to_repo = false;
-      };
-      username = {
-        show_always = true;
-      };
+      directory = { truncate_to_repo = false; };
+      username = { show_always = true; };
     };
   };
 
@@ -136,8 +121,6 @@
     enable = true;
     extraConfig = builtins.readFile ./wezterm.lua;
   };
-
-  
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -164,9 +147,7 @@
   #  /etc/profiles/per-user/kat/etc/profile.d/hm-session-vars.sh
   #
   # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    EDITOR = "hx";
-  };
+  home.sessionVariables = { EDITOR = "hx"; };
 
   programs.zsh = {
     enable = true;
@@ -182,9 +163,7 @@
 
   programs.bat = {
     enable = true;
-    config = {
-      theme = "base16";
-    };
+    config = { theme = "base16"; };
   };
 
   # Let Home Manager install and manage itself.
