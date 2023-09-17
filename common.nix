@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
-
-{
+let
+  pkgsStable = import <nixos> { };
+  pkgsUnstable = import <nixpkgs-unstable> { };
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   nixpkgs.config.allowUnfree = true;
@@ -23,6 +25,10 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     pkgs.htop
+    pkgsUnstable.eza
+    pkgs.git-branchless
+    pkgs.meld
+    pkgs.delta
     pkgs.helix
     pkgs.starship
     pkgs.rustup
@@ -104,6 +110,7 @@
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
+      setopt interactivecomments
     '';
   };
 

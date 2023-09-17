@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{
   programs.helix = {
     enable = true;
     settings = {
@@ -21,7 +21,8 @@
           config = {
             yaml = {
               schemas = {
-                kubernetes = [ "/kubernetes/*.yaml" "/kubernetes/*.yml" ];
+                kubernetes =
+                  [ "/kubernetes/*.yaml" "/kubernetes/*.yml" "kubectl-edit*" ];
                 "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook" =
                   [ "ansible/playbook.yml" "ansible/playbook.yaml" ];
                 "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/inventory.json" =
@@ -43,6 +44,17 @@
           name = "markdown";
           text-width = 120;
           language-server = { command = "ltex-ls"; };
+          formatter = {
+            command = "prettier";
+            args = [
+              "--parser"
+              "markdown"
+              "--prose-wrap"
+              "always"
+              "--print-wdith"
+              "120"
+            ];
+          };
         }
         {
           name = "nix";

@@ -10,10 +10,17 @@
         "!f() { git branch | grep -v ' master$' | grep -v ' main$' | xargs git branch -D; }; f";
     };
     extraConfig = {
-      core = { editor = "hx"; };
+      core = {
+        editor = "hx";
+        pager = "delta --syntax-theme='GitHub'";
+      };
+
       pull = { rebase = true; };
       init = { defaultBranch = "main"; };
       push = { autoSetupRemote = true; };
+      merge = { tool = "meld"; };
+      mergetool = { cmd = "meld"; };
+      branchless = { core = { mainBranch = "main"; }; };
     };
   };
 }
