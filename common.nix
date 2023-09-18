@@ -26,7 +26,8 @@ in {
     # # "Hello, world!" when run.
     pkgs.htop
     pkgsUnstable.eza
-    pkgs.git-branchless
+    pkgs.picocom
+    pkgsStable.git-branchless
     pkgs.meld
     pkgs.delta
     pkgs.helix
