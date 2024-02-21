@@ -21,6 +21,9 @@
       gopls
       lldb
       golangci-lint-langserver
+      ansible-language-server
+      rubyPackages_3_2.solargraph
+      rubocop
     ];
     languages = {
       language-server.git-commit = {
@@ -78,6 +81,13 @@
             ];
             en-GB = [ "kubernetes" "Kubernetes" "HPA" "HPAs" ];
           };
+        };
+      };
+      language-server.solargraph = {
+        config = {
+
+          diagnostics = true;
+          formatting = false;
         };
       };
 
@@ -139,17 +149,9 @@
         {
           name = "ruby";
           formatter = {
-            command = "bundle";
-            args = [
-              "exec"
-              "rubocop"
-              "--stdin"
-              "foo.rb"
-              "-a"
-              "--stderr"
-              "--fail-level"
-              "fatal"
-            ];
+            command = "rubocop";
+            args =
+              [ "--stdin" "foo.rb" "-a" "--stderr" "--fail-level" "fatal" ];
           };
         }
       ];

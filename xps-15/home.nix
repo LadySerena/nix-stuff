@@ -50,6 +50,8 @@ in {
     rustup
     bat
     lldb
+    # needed for helix clipboard
+    wl-clipboard-x11
   ];
 
   programs.helix = {
