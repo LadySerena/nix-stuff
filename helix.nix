@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   programs.helix = {
     enable = true;
     settings = {
@@ -9,6 +9,19 @@
       };
 
     };
+    extraPackages = with pkgs; [
+      nodePackages.yaml-language-server
+      nodePackages.bash-language-server
+      nodePackages.prettier
+      nodePackages.dockerfile-language-server-nodejs
+      ltex-ls
+      nixfmt
+      nil
+      marksman
+      gopls
+      lldb
+      golangci-lint-langserver
+    ];
     languages = {
       language-server.git-commit = {
         command = "ltex-ls";
@@ -82,9 +95,13 @@
           };
         }
         { name = "rust"; }
-        { name = "git-commit"; }
+        {
+          name = "git-commit";
+          language-servers = [ "ltex-ls" ];
+        }
         {
           name = "markdown";
+          language-servers = [ "ltex-ls" "marksman" ];
           file-types = [ "md" ];
           text-width = 120;
           formatter = {
