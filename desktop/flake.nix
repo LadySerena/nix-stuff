@@ -9,15 +9,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    git-branchless.url = "github:arxanas/git-branchless";
     helix-nightly.url = "github:helix-editor/helix/master";
   };
 
-  outputs = { nixGL, nixpkgs, home-manager, helix-nightly, ... }:
+  outputs = { nixGL, nixpkgs, home-manager, helix-nightly, git-branchless, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations."kitty" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."serena" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
@@ -27,6 +28,7 @@
           helix-nightly = helix-nightly;
           system = system;
           nixGL = nixGL;
+	  git-branchless = git-branchless;
         };
 
         # Optionally use extraSpecialArgs

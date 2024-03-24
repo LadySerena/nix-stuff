@@ -1,4 +1,4 @@
-{ config, pkgs, system, helix-nightly, nixGL, lib, ... }:
+{ config, pkgs, system, helix-nightly, nixGL, git-branchless, lib, ... }:
 let
   nixGLWrap = pkg:
     pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
@@ -9,7 +9,7 @@ let
       for bin in ${pkg}/bin/*; do
        wrapped_bin=$out/bin/$(basename $bin)
        echo "exec ${
-         lib.getExe nixGL.packages.${system}.nixGLDefault
+         lib.getExe nixGL.packages.${system}.nixGLIntel
        } $bin \$@" > $wrapped_bin
        chmod +x $wrapped_bin
       done
@@ -41,7 +41,6 @@ in {
     htop
     libsixel
     picocom
-    git-branchless
     meld
     delta
     dive
@@ -50,6 +49,8 @@ in {
     rustup
     bat
     lldb
+    # idk why 0.8 in nixpkgs doesn't build but use flake for now
+    git-branchless.packages.${system}.default
     # needed for helix clipboard
     wl-clipboard-x11
   ];
