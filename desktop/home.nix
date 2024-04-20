@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   system,
   helix-nightly,
@@ -41,10 +40,7 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  imports = [
-    ../helix.nix
-    ../personal-git.nix
-  ];
+  imports = import ../common;
 
   home.packages = with pkgs; [
     zellij
@@ -85,43 +81,5 @@ in
       # Workaround for https://github.com/nix-community/home-manager/issues/4744
       version = 1;
     };
-  };
-
-  programs.starship = {
-    enable = true;
-    settings = {
-      command_timeout = 1500;
-      directory = {
-        truncate_to_repo = false;
-      };
-      username = {
-        show_always = true;
-      };
-      kubernetes = {
-        disabled = false;
-      };
-    };
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.zsh = {
-    enable = true;
-    autosuggestion = {
-      enable = true;
-    };
-
-    initExtra = ''
-      . "$HOME/.cargo/env"
-      bindkey "^[," backward-word
-      bindkey "^[." forward-word
-      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-      fi
-      setopt interactivecomments
-    '';
   };
 }
