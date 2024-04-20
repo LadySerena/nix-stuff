@@ -14,6 +14,11 @@ These are personal configs, but feel free to crib them for your nix stuff.
 6. make changes as needed
 7. `home-manager switch --flake .`
 
+## Common configs
+
+Place a valid nix file into `./common` and the import commands in the `home.nix`
+will pick up new files.
+
 ## To-dos
 
 - unify desktop and xps-15 configs
