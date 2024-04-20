@@ -15,7 +15,7 @@
       nodePackages.prettier
       nodePackages.dockerfile-language-server-nodejs
       ltex-ls
-      nixfmt
+      nixfmt-rfc-style
       nil
       marksman
       gopls

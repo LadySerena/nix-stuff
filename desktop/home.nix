@@ -1,6 +1,16 @@
-{ config, pkgs, system, helix-nightly, nixGL, git-branchless, lib, ... }:
+{
+  config,
+  pkgs,
+  system,
+  helix-nightly,
+  nixGL,
+  git-branchless,
+  lib,
+  ...
+}:
 let
-  nixGLWrap = pkg:
+  nixGLWrap =
+    pkg:
     pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
       mkdir $out
       ln -s ${pkg}/* $out
@@ -8,14 +18,12 @@ let
       mkdir $out/bin
       for bin in ${pkg}/bin/*; do
        wrapped_bin=$out/bin/$(basename $bin)
-       echo "exec ${
-         lib.getExe nixGL.packages.${system}.nixGLIntel
-       } $bin \$@" > $wrapped_bin
+       echo "exec ${lib.getExe nixGL.packages.${system}.nixGLIntel} $bin \$@" > $wrapped_bin
        chmod +x $wrapped_bin
       done
     '';
-
-in {
+in
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "serena";
@@ -33,7 +41,10 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  imports = [ ../helix.nix ../personal-git.nix ];
+  imports = [
+    ../helix.nix
+    ../personal-git.nix
+  ];
 
   home.packages = with pkgs; [
     zellij
@@ -44,6 +55,7 @@ in {
     meld
     delta
     dive
+    fzf
     binutils
     starship
     rustup
@@ -79,14 +91,29 @@ in {
     enable = true;
     settings = {
       command_timeout = 1500;
-      directory = { truncate_to_repo = false; };
-      username = { show_always = true; };
-      kubernetes = { disabled = false; };
+      directory = {
+        truncate_to_repo = false;
+      };
+      username = {
+        show_always = true;
+      };
+      kubernetes = {
+        disabled = false;
+      };
     };
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.zsh = {
     enable = true;
+    autosuggestion = {
+      enable = true;
+    };
+
     initExtra = ''
       . "$HOME/.cargo/env"
       bindkey "^[," backward-word
