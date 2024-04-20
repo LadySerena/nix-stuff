@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+
   programs.helix = {
     enable = true;
     settings = {
@@ -7,7 +8,6 @@
         true-color = true;
         file-picker = { hidden = true; };
       };
-
     };
     extraPackages = with pkgs; [
       nodePackages.yaml-language-server
@@ -15,7 +15,7 @@
       nodePackages.prettier
       nodePackages.dockerfile-language-server-nodejs
       ltex-ls
-      nixfmt-rfc-style
+      nixfmt-classic
       nil
       marksman
       gopls
