@@ -1,15 +1,6 @@
-{
-  pkgs,
-  system,
-  helix-nightly,
-  nixGL,
-  git-branchless,
-  lib,
-  ...
-}:
+{ pkgs, system, helix-nightly, nixGL, git-branchless, lib, ... }:
 let
-  nixGLWrap =
-    pkg:
+  nixGLWrap = pkg:
     pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
       mkdir $out
       ln -s ${pkg}/* $out
@@ -17,12 +8,13 @@ let
       mkdir $out/bin
       for bin in ${pkg}/bin/*; do
        wrapped_bin=$out/bin/$(basename $bin)
-       echo "exec ${lib.getExe nixGL.packages.${system}.nixGLIntel} $bin \$@" > $wrapped_bin
+       echo "exec ${
+         lib.getExe nixGL.packages.${system}.nixGLIntel
+       } $bin \$@" > $wrapped_bin
        chmod +x $wrapped_bin
       done
     '';
-in
-{
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "serena";

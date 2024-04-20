@@ -13,7 +13,8 @@
     helix-nightly.url = "github:helix-editor/helix/master";
   };
 
-  outputs = { nixGL, nixpkgs, home-manager, helix-nightly, git-branchless, ... }:
+  outputs =
+    { nixGL, nixpkgs, home-manager, helix-nightly, git-branchless, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -28,7 +29,7 @@
           helix-nightly = helix-nightly;
           system = system;
           nixGL = nixGL;
-	  git-branchless = git-branchless;
+          git-branchless = git-branchless;
         };
 
         # Optionally use extraSpecialArgs

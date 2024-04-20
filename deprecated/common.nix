@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let pkgsStable = import <nixpkgs> { }; #points to unstable
+let pkgsStable = import <nixpkgs> { }; # points to unstable
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

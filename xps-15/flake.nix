@@ -23,7 +23,11 @@
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
         modules = [ ./home.nix ];
-        extraSpecialArgs = {  helix-nightly=helix-nightly; system=system; nixGL=nixGL;};
+        extraSpecialArgs = {
+          helix-nightly = helix-nightly;
+          system = system;
+          nixGL = nixGL;
+        };
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
