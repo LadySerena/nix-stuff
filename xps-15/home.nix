@@ -14,6 +14,7 @@ let
        chmod +x $wrapped_bin
       done
     '';
+
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -35,22 +36,37 @@ in {
   imports = import ../common;
 
   home.packages = with pkgs; [
+    # terminal multiplexer
     zellij
+    # ls replacement
     eza
     htop
+    # display images in terminal
     libsixel
+    # serial console for raspberrypi / other mcus
     picocom
+    # git tools and plugins
     git-branchless
     meld
     delta
+    # container image explorer
     dive
     binutils
+    # prompt
     starship
+    # install rust tools
     rustup
+    # cat replacement
     bat
     lldb
     # needed for helix clipboard
     wl-clipboard-x11
+    # grep replacement
+    ripgrep
+    # fuzzy finder
+    fzf
+    # write to sd cards without worrying about fucking up the wrong block device
+    (nixGLWrap rpi-imager)
   ];
 
   programs.helix = {
