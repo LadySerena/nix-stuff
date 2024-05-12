@@ -1,19 +1,10 @@
 { pkgs, system, helix-nightly, nixGL, git-branchless, lib, ... }:
 let
-  nixGLWrap = pkg:
-    pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
-      mkdir $out
-      ln -s ${pkg}/* $out
-      rm $out/bin
-      mkdir $out/bin
-      for bin in ${pkg}/bin/*; do
-       wrapped_bin=$out/bin/$(basename $bin)
-       echo "exec ${
-         lib.getExe nixGL.packages.${system}.nixGLIntel
-       } $bin \$@" > $wrapped_bin
-       chmod +x $wrapped_bin
-      done
-    '';
+  wrap = input_package:
+    (import ../common/wrap.nix ({
+      inherit pkgs system nixGL lib input_package;
+    }));
+
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -32,28 +23,12 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  imports = import ../common;
-
-  home.packages = with pkgs; [
-    zellij
-    eza
-    htop
-    libsixel
-    picocom
-    meld
-    delta
-    dive
-    fzf
-    binutils
-    starship
-    rustup
-    bat
-    lldb
-    # idk why 0.8 in nixpkgs doesn't build but use flake for now
-    git-branchless.packages.${system}.default
-    # needed for helix clipboard
-    wl-clipboard-x11
-  ];
+  imports = [
+    (import ../common/packages.nix ({
+      inherit pkgs;
+      extra = [ (wrap pkgs.rpi-imager) ];
+    }))
+  ] ++ import ../common;
 
   programs.helix = {
     enable = true;
@@ -61,17 +36,10 @@ in {
   };
 
   programs.wezterm = {
-    package = (nixGLWrap pkgs.wezterm);
+    package = (wrap pkgs.wezterm);
     enable = true;
+    # todo refactor terminal.nix to use common/wrap.nix
     extraConfig = builtins.readFile ../wezterm.lua;
   };
 
-  programs.gh = {
-    enable = true;
-
-    settings = {
-      # Workaround for https://github.com/nix-community/home-manager/issues/4744
-      version = 1;
-    };
-  };
 }

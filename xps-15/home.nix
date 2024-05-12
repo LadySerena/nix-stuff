@@ -1,19 +1,9 @@
-{ config, pkgs, system, helix-nightly, nixGL, lib, ... }:
+{ pkgs, system, helix-nightly, nixGL, lib, ... }:
 let
-  nixGLWrap = pkg:
-    pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
-      mkdir $out
-      ln -s ${pkg}/* $out
-      rm $out/bin
-      mkdir $out/bin
-      for bin in ${pkg}/bin/*; do
-       wrapped_bin=$out/bin/$(basename $bin)
-       echo "exec ${
-         lib.getExe nixGL.packages.${system}.nixGLIntel
-       } $bin \$@" > $wrapped_bin
-       chmod +x $wrapped_bin
-      done
-    '';
+  wrap = input_package:
+    (import ../common/wrap.nix ({
+      inherit pkgs system nixGL lib input_package;
+    }));
 
 in {
   # Home Manager needs a bit of information about you and the paths it should
@@ -33,41 +23,12 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  imports = import ../common;
-
-  home.packages = with pkgs; [
-    # terminal multiplexer
-    zellij
-    # ls replacement
-    eza
-    htop
-    # display images in terminal
-    libsixel
-    # serial console for raspberrypi / other mcus
-    picocom
-    # git tools and plugins
-    git-branchless
-    meld
-    delta
-    # container image explorer
-    dive
-    binutils
-    # prompt
-    starship
-    # install rust tools
-    rustup
-    # cat replacement
-    bat
-    lldb
-    # needed for helix clipboard
-    wl-clipboard-x11
-    # grep replacement
-    ripgrep
-    # fuzzy finder
-    fzf
-    # write to sd cards without worrying about fucking up the wrong block device
-    (nixGLWrap rpi-imager)
-  ];
+  imports = [
+    (import ../common/packages.nix ({
+      pkgs = pkgs;
+      extra = [ (wrap pkgs.rpi-imager) ];
+    }))
+  ] ++ import ../common;
 
   programs.helix = {
     enable = true;
@@ -75,7 +36,7 @@ in {
   };
 
   programs.wezterm = {
-    package = (nixGLWrap pkgs.wezterm);
+    package = (wrap pkgs.wezterm);
     enable = true;
     extraConfig = builtins.readFile ../wezterm.lua;
   };
