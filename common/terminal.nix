@@ -24,6 +24,13 @@
     options = [ "--cmd=cd" ];
   };
 
+  programs.zellij = {
+    enable = true;
+    settings = {
+      pane_frame = false;
+    };
+  };
+
   programs.starship = {
     enable = true;
     settings = {
