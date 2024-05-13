@@ -1,4 +1,4 @@
-{ pkgs, system, helix-nightly, nixGL, git-branchless, lib, ... }:
+{ pkgs, system, helix-nightly, nixGL, lib, ... }:
 let
   wrap = input_package:
     (import ../common/wrap.nix ({

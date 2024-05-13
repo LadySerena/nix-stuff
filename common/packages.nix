@@ -30,5 +30,11 @@
       ripgrep
       # fuzzy finder
       fzf
+      # background code checker for rust
+      bacon
+      # caches rust deps so we don't recompile everytime
+      sccache
+      # cli for crates.io
+      cargo-info
     ] ++ extra;
 }
