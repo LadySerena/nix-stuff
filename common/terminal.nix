@@ -26,8 +26,7 @@
 
   programs.zellij = {
     enable = true;
-    enableZshIntegration = true;
-    settings = { pane_frame = false; };
+    settings = { pane_frames = false; };
   };
 
   programs.starship = {
