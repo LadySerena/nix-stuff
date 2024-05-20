@@ -36,5 +36,7 @@
       sccache
       # cli for crates.io
       cargo-info
+      # cli to manage talos linux nodes
+      talosctl
     ] ++ extra;
 }
