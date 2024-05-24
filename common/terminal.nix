@@ -4,7 +4,6 @@
     autosuggestion = { enable = true; };
 
     initExtra = ''
-      . "$HOME/.cargo/env"
       bindkey "^[," backward-word
       bindkey "^[." forward-word
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then

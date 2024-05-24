@@ -38,5 +38,9 @@
       cargo-info
       # cli to manage talos linux nodes
       talosctl
+      # kubernetes tools
+      kubectl
+      kustomize
+      kubernetes-helm
     ] ++ extra;
 }
