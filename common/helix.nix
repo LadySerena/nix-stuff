@@ -25,6 +25,7 @@
       rubyPackages_3_2.solargraph
       rust-analyzer
       rubocop
+      clang-tools
     ];
     languages = {
       language-server.git-commit = {

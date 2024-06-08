@@ -16,7 +16,6 @@
       delta
       # container image explorer
       dive
-      binutils
       # prompt
       starship
       # install rust tools
@@ -42,5 +41,8 @@
       kubectl
       kustomize
       kubernetes-helm
+      # C compiler for bpf and other things
+      clang
+      strace
     ] ++ extra;
 }
