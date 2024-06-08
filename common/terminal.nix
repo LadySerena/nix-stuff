@@ -3,6 +3,11 @@
     enable = true;
     autosuggestion = { enable = true; };
 
+    sessionVariables = {
+      LC_COLLATE = "C";
+      LC_CTYPE = "C.UTF-8";
+    };
+
     initExtra = ''
       bindkey "^[," backward-word
       bindkey "^[." forward-word
