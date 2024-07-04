@@ -44,5 +44,7 @@
       # C compiler for bpf and other things
       clang
       strace
+      # install cilium for homelab cni
+      cilium-cli
     ] ++ extra;
 }
