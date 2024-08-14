@@ -1,6 +1,7 @@
 { pkgs, extra ? [ ], ... }: {
   home.packages = with pkgs;
     [
+      google-cloud-sdk
       # terminal multiplexer
       zellij
       # ls replacement
@@ -37,12 +38,14 @@
       cargo-info
       # cli to manage talos linux nodes
       talosctl
+      jq
+      yq-go
       # kubernetes tools
       kubectl
       kustomize
       kubernetes-helm
-      # C compiler for bpf and other things
-      clang
+      kind
+      k9s
       strace
       # install cilium for homelab cni
       cilium-cli
