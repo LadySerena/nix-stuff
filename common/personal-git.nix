@@ -18,7 +18,22 @@
         "!f() { git branch | grep -v ' master$' | grep -v ' main$' | xargs git branch -D; }; f";
       squash-cleanup =
         "!f() { git hide 'draft() - ancestors(branches())'; }; f";
+      stats =
+        "!f() { git rev-parse --abbrev-ref origin/HEAD | xargs git diff --stat; }; f";
     };
+    ignores = [
+      "**/vendor/bundle"
+      "*/vendor/bundle"
+      ".DS_Store"
+      ".idea"
+      "*.orig"
+      "*.bak"
+      "*.swp"
+      "result"
+      "__debug_bin*"
+      ".helix/"
+    ];
+
     extraConfig = {
       core = {
         editor = "hx";

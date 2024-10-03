@@ -40,6 +40,7 @@
       directory = { truncate_to_repo = false; };
       username = { show_always = true; };
       kubernetes = { disabled = false; };
+      nix_shell = { disabled = false; };
     };
   };
 }

@@ -38,16 +38,19 @@
       cargo-info
       # cli to manage talos linux nodes
       talosctl
-      jq
-      yq-go
       # kubernetes tools
       kubectl
+      k9s
       kustomize
       kubernetes-helm
       kind
-      k9s
+      stern
+      # C compiler for bpf and other things
+      clang
       strace
       # install cilium for homelab cni
       cilium-cli
+      jq
+      yq-go
     ] ++ extra;
 }
