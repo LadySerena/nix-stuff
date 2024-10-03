@@ -9,8 +9,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    git-branchless.url = "github:arxanas/git-branchless";
-    helix-nightly.url = "github:helix-editor/helix/master";
+    git-branchless = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:arxanas/git-branchless";
+    };
+    helix-nightly = {
+      url = "github:helix-editor/helix/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -19,6 +25,8 @@
       x86_linux = "x86_64-linux";
       args = (s: { inherit helix-nightly nixGL git-branchless; } // s);
     in {
+      shared_configs = ./common;
+      package_list = ./common/packages.nix;
       homeConfigurations."serena" = home-manager.lib.homeManagerConfiguration {
         extraSpecialArgs = args {
           system = x86_linux;
