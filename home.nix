@@ -6,6 +6,14 @@ let
     }));
 
 in {
+
+  # waiting on https://github.com/nametake/golangci-lint-langserver/pull/52 to be merged
+  nixpkgs.overlays = [
+    (final: previous: {
+      golangci-lint-langserver = previous.golangci-lint-langserver.overrideAttrs
+        (oldAttrs: { doCheck = false; });
+    })
+  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;

@@ -52,5 +52,7 @@
       cilium-cli
       jq
       yq-go
+      # diagrams
+      drawio
     ] ++ extra;
 }

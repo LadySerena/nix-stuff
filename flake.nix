@@ -5,6 +5,7 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixGL.url = "github:nix-community/nixGL";
+    nixGL.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +15,8 @@
       url = "github:arxanas/git-branchless";
     };
     helix-nightly = {
-      url = "github:helix-editor/helix/master";
+      url =
+        "github:helix-editor/helix?rev=3a63e85b6ab204bf0e55d56db63ea02263175424";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -34,7 +36,10 @@
           username = "serena";
         };
 
-        pkgs = import nixpkgs { system = x86_linux; };
+        pkgs = import nixpkgs {
+          system = x86_linux;
+          config.allowUnfree = true;
+        };
 
         modules = [ ./home.nix ];
       };
@@ -45,7 +50,10 @@
           homeDir = "/home/kitty";
           username = "kitty";
         };
-        pkgs = import nixpkgs { system = x86_linux; };
+        pkgs = import nixpkgs {
+          system = x86_linux;
+          config.allowUnfree = true;
+        };
 
         modules = [ ./home.nix ];
       };

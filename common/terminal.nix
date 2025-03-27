@@ -30,7 +30,16 @@
 
   programs.zellij = {
     enable = true;
-    settings = { pane_frames = false; };
+    settings = {
+      pane_frames = false;
+      show_startup_tips = false;
+    };
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 
   programs.starship = {
