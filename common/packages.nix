@@ -54,5 +54,7 @@
       yq-go
       # diagrams
       drawio
+      go
+      goreleaser
     ] ++ extra;
 }

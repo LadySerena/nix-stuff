@@ -20,6 +20,10 @@
         "!f() { git hide 'draft() - ancestors(branches())'; }; f";
       stats =
         "!f() { git rev-parse --abbrev-ref origin/HEAD | xargs git diff --stat; }; f";
+      main-branch =
+        "!f() { git symbolic-ref refs/remotes/origin/HEAD | cut -d/ -f 4; }; f";
+      changelog =
+        "!f() { git log --reverse --pretty=tformat:'### %s (%h)%n%n%b' $(git main-branch)..; }; f";
     };
     ignores = [
       "**/vendor/bundle"
