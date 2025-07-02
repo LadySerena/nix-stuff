@@ -8,7 +8,7 @@
       LC_CTYPE = "C.UTF-8";
     };
 
-    initExtra = ''
+    initContent = ''
       bindkey "^[," backward-word
       bindkey "^[." forward-word
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
