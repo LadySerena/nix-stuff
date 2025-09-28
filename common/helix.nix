@@ -14,7 +14,7 @@
       nodePackages.yaml-language-server
       nodePackages.bash-language-server
       nodePackages.prettier
-      nodePackages.dockerfile-language-server-nodejs
+      dockerfile-language-server
       ltex-ls
       nixfmt-classic
       nil

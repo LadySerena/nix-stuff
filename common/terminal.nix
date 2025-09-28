@@ -15,6 +15,7 @@
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
       setopt interactivecomments
+      eval "$(batman --export-env)"
     '';
   };
 

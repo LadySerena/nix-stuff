@@ -56,5 +56,7 @@
       drawio
       go
       goreleaser
+      # colorized man pages
+      bat-extras.batman
     ] ++ extra;
 }
