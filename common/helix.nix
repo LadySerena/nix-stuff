@@ -22,8 +22,7 @@
       gopls
       lldb
       golangci-lint-langserver
-      ansible-language-server
-      rubyPackages_3_2.solargraph
+      rubyPackages.solargraph
       rust-analyzer
       rubocop
       clang-tools
