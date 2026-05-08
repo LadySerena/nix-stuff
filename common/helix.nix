@@ -11,9 +11,9 @@
       };
     };
     extraPackages = with pkgs; [
-      nodePackages.yaml-language-server
-      nodePackages.bash-language-server
-      nodePackages.prettier
+      yaml-language-server
+      bash-language-server
+      prettier
       dockerfile-language-server
       ltex-ls
       nixfmt-classic
