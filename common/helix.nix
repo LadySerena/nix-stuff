@@ -23,6 +23,7 @@
       lldb
       golangci-lint-langserver
       rubyPackages.solargraph
+      ocamlPackages.ocaml-lsp
       rust-analyzer
       rubocop
       clang-tools

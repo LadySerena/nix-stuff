@@ -51,6 +51,8 @@
       # install cilium for homelab cni
       cilium-cli
       jq
+      ocaml
+      opam
       yq-go
       # diagrams
       drawio
