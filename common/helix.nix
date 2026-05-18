@@ -16,7 +16,7 @@
       prettier
       dockerfile-language-server
       ltex-ls
-      nixfmt-classic
+      nixfmt
       nil
       marksman
       gopls
